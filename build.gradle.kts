@@ -22,13 +22,16 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
+                implementation("com.darkrockstudios:mpfilepicker:1.0.0")
                 implementation(compose.desktop.currentOs)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.material3)
+                implementation("commons-io:commons-io:2.6")
             }
         }
         val jvmTest by getting
     }
+    jvmToolchain(11)
 }
 
 compose.desktop {
