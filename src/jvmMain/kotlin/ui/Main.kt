@@ -44,6 +44,8 @@ fun App(window: ComposeWindow) {
         var numCap by remember { mutableStateOf("") }
         var start by remember { mutableStateOf("") }
 
+        var exampleEpisode by remember { mutableStateOf("Title 01x01. Ejemplo de capitulo") }
+
         var folderPath by remember { mutableStateOf("") }
         var filePath by remember { mutableStateOf("") }
 
@@ -174,6 +176,7 @@ fun App(window: ComposeWindow) {
                     singleLine = true,
                     onValueChange = {
                         show = it
+                        exampleEpisode = reloadExample(show, season, start)
                     }
                 )
 
@@ -184,7 +187,10 @@ fun App(window: ComposeWindow) {
                     value = season,
                     singleLine = true,
                     onValueChange = {
-                        if (!it.contains(Regex("\\D"))) { season = it }
+                        if (!it.contains(Regex("\\D"))) {
+                            season = it
+                            exampleEpisode = reloadExample(show, season, start)
+                        }
                     },
                 )
 
@@ -197,6 +203,7 @@ fun App(window: ComposeWindow) {
                     onValueChange = {
                         if (!it.contains(Regex("\\D"))){
                             numCap = it
+                            exampleEpisode = reloadExample(show, season, start)
                             try {
                                 colorNumberFolder = setColorNumber(numberLinesFolder, numCap.toInt())
                                 colorNumberFile = setColorNumber(numberLinesFile, numCap.toInt())
@@ -214,7 +221,10 @@ fun App(window: ComposeWindow) {
                     value = start,
                     singleLine = true,
                     onValueChange = {
-                        if (!it.contains(Regex("\\D"))) { start = it }
+                        if (!it.contains(Regex("\\D"))) {
+                            start = it
+                            exampleEpisode = reloadExample(show, season, start)
+                        }
                     }
                 )
 
@@ -222,7 +232,7 @@ fun App(window: ComposeWindow) {
 
             Spacer(Modifier.size(15.dp))
 
-            Text("Title 01x07. Ejemplo de capitulo", fontSize = 12.sp)
+            Text(exampleEpisode, fontSize = 12.sp)
 
             Spacer(Modifier.size(10.dp))
 
@@ -435,6 +445,16 @@ fun App(window: ComposeWindow) {
         }
 
     }
+}
+
+fun reloadExample(nameTvShow: String, numSeason: String, numStart: String): String {
+
+    val start = if (numStart.length==1) { "0$numStart" } else { numStart }
+    var season = if (numSeason.length==1) { "0$numSeason" } else { numSeason }
+    season = if (numSeason=="0") { "" } else { "${season}x" }
+    val show = if(nameTvShow!=""){ "$nameTvShow " } else {nameTvShow}
+
+    return "$show${season}$start. Ejemplo de capitulo"
 }
 
 fun setColorNumber(numberLines:Int, numberEpisodes:Int): Color {

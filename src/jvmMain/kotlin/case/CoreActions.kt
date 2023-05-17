@@ -26,9 +26,11 @@ class CoreActions {
 
             var episodes = (listNames.indexOf(it)+start).toString()
             episodes = if (episodes.length==1) { "0$episodes" } else { episodes }
-            val season = if (numSeason.length==1) { "0$numSeason" } else { numSeason }
+            var season = if (numSeason.length==1) { "0$numSeason" } else { numSeason }
+            season = if (numSeason=="0") { "" } else { "${season}x" }
+            val tvShow = if(nameTvShow!=""){ "$nameTvShow " } else {nameTvShow}
 
-            "$nameTvShow ${season}x${episodes}. $it"
+            "$tvShow${season}${episodes}. $it"
         }
 
         fileWriter.renameFiles(folderPath,listNames)
