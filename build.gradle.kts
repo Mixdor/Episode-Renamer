@@ -49,7 +49,7 @@ compose.desktop {
                 menuGroup = "SilentBit"
                 perUserInstall = true
                 dirChooser = true
-                upgradeUuid = "UUID"
+                upgradeUuid = "a31f6998-82a2-4f8b-bd6d-ebcc8a1259ef"
             }
             linux {
                 iconFile.set(project.file("src/jvmMain/resources/EpisodeRenamer.png"))
