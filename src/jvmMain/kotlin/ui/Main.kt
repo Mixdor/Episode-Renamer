@@ -9,7 +9,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +34,7 @@ private val coreActions = CoreActions()
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 @Preview
-fun App(window: ComposeWindow) {
+fun App() {
 
     AppTheme(false) {
 
@@ -44,7 +43,7 @@ fun App(window: ComposeWindow) {
         var numCap by remember { mutableStateOf("") }
         var start by remember { mutableStateOf("") }
 
-        var exampleEpisode by remember { mutableStateOf("Title 01x01. Ejemplo de capitulo") }
+        var exampleEpisode by remember { mutableStateOf("Title 01x01. Episode example") }
 
         var folderPath by remember { mutableStateOf("") }
         var filePath by remember { mutableStateOf("") }
@@ -66,8 +65,8 @@ fun App(window: ComposeWindow) {
         if(dialogEmpty){
             AlertDialog(
                 modifier = Modifier.fillMaxWidth(0.5f),
-                title = { Text(text = "Atención", fontWeight = FontWeight.Bold, color = md_theme_light_primary ) },
-                text = { Text(text = "Debes rellenar todos los campos", fontSize = 14.sp) },
+                title = { Text(text = "Attention", fontWeight = FontWeight.Bold, color = md_theme_light_primary ) },
+                text = { Text(text = "You must fill in all fields", fontSize = 14.sp) },
                 onDismissRequest = { dialogEmpty = false },
                 confirmButton = {
                     TextButton(onClick = { dialogEmpty = false })
@@ -80,11 +79,11 @@ fun App(window: ComposeWindow) {
         if(dialogChartIllegal){
             AlertDialog(
                 modifier = Modifier.fillMaxWidth(0.7f),
-                title = { Text(text = "Atención", fontWeight = FontWeight.Bold, color = md_theme_light_primary ) },
+                title = { Text(text = "Attention", fontWeight = FontWeight.Bold, color = md_theme_light_primary ) },
                 text = {
                     Column {
                         Text(
-                            text = "Se ha encontrado en el archivo al menos uno de los siguientes caracteres ilegales:",
+                            text = "At least one of the following illegal characters has been found in the file:",
                             fontSize = 14.sp
                         )
                         Text(
@@ -104,8 +103,8 @@ fun App(window: ComposeWindow) {
         if(dialogErrorEpisodes){
             AlertDialog(
                 modifier = Modifier.fillMaxWidth(0.5f),
-                title = { Text(text = "Atención", fontWeight = FontWeight.Bold, color = md_theme_light_primary ) },
-                text = { Text(text = "La cantidad de episodios no coincide", fontSize = 14.sp) },
+                title = { Text(text = "Attention", fontWeight = FontWeight.Bold, color = md_theme_light_primary ) },
+                text = { Text(text = "The number of episodes does not match.", fontSize = 14.sp) },
                 onDismissRequest = { dialogErrorEpisodes = false },
                 confirmButton = {
                     TextButton(onClick = { dialogErrorEpisodes = false })
@@ -171,7 +170,7 @@ fun App(window: ComposeWindow) {
                 TextField(
                     modifier = Modifier.height(52.dp).fillMaxWidth(0.4f),
                     textStyle = TextStyle(fontSize = 13.sp),
-                    label = {Text("Nombre de la serie", fontSize = 12.sp)},
+                    label = {Text("Tv show name", fontSize = 12.sp)},
                     value = show,
                     singleLine = true,
                     onValueChange = {
@@ -183,7 +182,7 @@ fun App(window: ComposeWindow) {
                 TextField(
                     modifier = Modifier.height(52.dp).fillMaxSize(0.35f),
                     textStyle = TextStyle(fontSize = 12.sp),
-                    label = {Text(text = "Temporada", fontSize = 12.sp)},
+                    label = {Text(text = "Season", fontSize = 12.sp)},
                     value = season,
                     singleLine = true,
                     onValueChange = {
@@ -197,7 +196,7 @@ fun App(window: ComposeWindow) {
                 TextField(
                     modifier = Modifier.height(52.dp).fillMaxSize(0.5f),
                     textStyle = TextStyle(fontSize = 13.sp),
-                    label = {Text(text = "N° Capitulos", fontSize = 12.sp)},
+                    label = {Text(text = "N° Episodes", fontSize = 12.sp)},
                     value = numCap,
                     singleLine = true,
                     onValueChange = {
@@ -217,7 +216,7 @@ fun App(window: ComposeWindow) {
                 TextField(
                     modifier = Modifier.height(52.dp).fillMaxSize(0.92f),
                     textStyle = TextStyle(fontSize = 13.sp),
-                    label = {Text(text = "Iniciar en", fontSize = 12.sp)},
+                    label = {Text(text = "Start at", fontSize = 12.sp)},
                     value = start,
                     singleLine = true,
                     onValueChange = {
@@ -308,7 +307,7 @@ fun App(window: ComposeWindow) {
                                 showDirPicker = true
                             }
                         ){
-                            Text("Carpeta", fontSize = 12.sp)
+                            Text("Folder", fontSize = 12.sp)
                         }
                     }
                 }
@@ -392,7 +391,7 @@ fun App(window: ComposeWindow) {
                                 showFilePicker = true
                             }
                         ){
-                            Text("Cargar", fontSize = 12.sp)
+                            Text("Upload", fontSize = 12.sp)
                         }
                     }
                 }
@@ -437,7 +436,7 @@ fun App(window: ComposeWindow) {
                     },
                     modifier = Modifier.fillMaxWidth(0.8f)
                 ) {
-                    Text("Aplicar", fontSize = 12.sp)
+                    Text("Apply", fontSize = 12.sp)
                 }
             }
 
@@ -454,7 +453,7 @@ fun reloadExample(nameTvShow: String, numSeason: String, numStart: String): Stri
     season = if (numSeason=="0") { "" } else { "${season}x" }
     val show = if(nameTvShow!=""){ "$nameTvShow " } else {nameTvShow}
 
-    return "$show${season}$start. Ejemplo de capitulo"
+    return "$show${season}$start. Episode example"
 }
 
 fun setColorNumber(numberLines:Int, numberEpisodes:Int): Color {
@@ -474,6 +473,6 @@ fun main() = application {
         state = rememberWindowState(size = DpSize(780.dp, 600.dp))
     ) {
         this.window.minimumSize = Dimension(780,600)
-        App(window)
+        App()
     }
 }

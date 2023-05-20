@@ -31,16 +31,36 @@ kotlin {
         }
         val jvmTest by getting
     }
-    jvmToolchain(11)
+    jvmToolchain(17)
 }
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "ui.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "multiCompostaje"
+            packageName = "EpisodeRenamer"
             packageVersion = "1.0.0"
+            vendor = "SilentBit Studios"
+            description = "Rename episodes of tv shows or anime"
+
+            windows {
+                iconFile.set(project.file("src/jvmMain/resources/EpisodeRenamer.ico"))
+                menuGroup = "SilentBit"
+                perUserInstall = true
+                dirChooser = true
+                upgradeUuid = "UUID"
+            }
+            linux {
+                iconFile.set(project.file("src/jvmMain/resources/EpisodeRenamer.png"))
+                //debMaintainer = "maintainer@example.com"
+                appCategory = "Utility"
+                appRelease = "1"
+            }
+            macOS {
+                iconFile.set(project.file("icon.icns"))
+                dockName = "Episode Renamer"
+            }
         }
     }
 }

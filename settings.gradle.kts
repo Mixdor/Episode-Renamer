@@ -11,5 +11,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "multiCompostaje"
+rootProject.name = "EpisodeRenamer"
 
